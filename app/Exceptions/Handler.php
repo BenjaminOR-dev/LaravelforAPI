@@ -2,11 +2,25 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use App\Enums\HttpStatusEnum;
+use App\Helpers\ResponseHelper;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
+    /**
+     * Global error message
+     *
+     * @var string
+     */
+    private const GLOBAL_ERROR_MESSAGE = 'Internal Server Error. Try later';
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -34,23 +48,70 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (Throwable $th) {
+            return $this->handleException($th);
         });
     }
 
     /**
-     * Render an exception into an HTTP response.
+     * Handle an exception.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \Throwable $e
      * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Throwable
      */
-    public function render($request, Throwable $e)
+    public function handleException(Throwable $th)
     {
-        if ($request->wantsJson()) {
-            # code...
+        $status    = $this->isHttpException($th) ? $th->getStatusCode() : 500;
+        $message   = $th->getMessage();
+        $data      = [];
+
+        if (config('app.debug')) {
+            $dataDev = [
+                'file'  => $th->getFile(),
+                'line'  => $th->getLine(),
+                'trace' => $th->getTrace(),
+            ];
         }
+
+        if ($th instanceof ValidationException) {
+            $status  = HttpStatusEnum::UNPROCESSABLE_ENTITY;
+            $message = 'Los datos recibidos son incorrectos';
+            $data    = $th->validator->errors()->getMessages();
+        }
+
+        if ($th->getPrevious() instanceof ModelNotFoundException) {
+            $status  = HttpStatusEnum::NOT_FOUND;
+            $th      = $th->getPrevious();
+
+            if (trim($message) === '') {
+                $model = class_basename($th->getModel());
+                $id    = $th->getIds()[0];
+                $message = "No hay resultados para el modelo $model $id";
+            }
+        }
+
+        if ($th instanceof AuthenticationException) {
+            $status  = HttpStatusEnum::UNAUTHORIZED;
+            if (trim($message) === '') {
+                $message = 'No autorizado';
+            }
+
+        }
+
+        if ($th instanceof AuthorizationException) {
+            $status  = HttpStatusEnum::FORBIDDEN;
+            if (trim($message) === '') {
+                $message = 'Acción prohibida';
+            }
+        }
+
+        if ($th instanceof NotFoundHttpException) {
+            $status  = HttpStatusEnum::NOT_FOUND;
+            if (trim($message) === '') {
+                $message = 'No se encontró';
+            }
+        }
+
+        return ResponseHelper::jsonError($message, $data, $status);
     }
 }

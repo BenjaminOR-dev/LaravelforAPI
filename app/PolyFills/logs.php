@@ -1,6 +1,5 @@
 <?php
 
-use App\Helpers\ResponseHelper;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -10,20 +9,6 @@ use Illuminate\Support\Facades\Log;
  * @author Ing. Benjamin Olvera Rosales
  */
 
-/**
- * Verifica que no exista la funcion global getRequestId_ y si es asi la crea
- */
-if (!function_exists('getRequestId_')) {
-    /**
-     * Obtiene el request id
-     *
-     * @return string
-     */
-    function getRequestId_(): string
-    {
-        return ResponseHelper::getRequestId();
-    }
-}
 
 /**
  * Verifica que no exista la funcion global info_ y si es asi la crea

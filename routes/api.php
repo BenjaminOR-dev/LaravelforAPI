@@ -11,6 +11,6 @@ use Illuminate\Support\Facades\Route;
  * @api {{host}}/api
  *
  * Recomendado utilizar los archivos de rutas de la carpeta "api"
- *  > php artisan make:api NombreArchivoRutas {--cs <Con controlador y servicio>} {--csa <Con controlador y servicio api>}
+ *  > php artisan make:api NombreArchivoRutas {--cs <Con controlador y servicio>} {--csa <Con controlador y servicio restful api>}
  * ---------------------------------------------------------------------------
  */

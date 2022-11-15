@@ -62,7 +62,23 @@ class ResponseHelper
      */
     public static function json($data = [], string $message = null, int $status = HttpStatusEnum::OK)
     {
-        return (new Self)->standard(HttpStatusEnum::OK, $data, $message);
+        return (new Self)->standard($status, $data, $message);
+    }
+
+    /**
+     * Response json error
+     *
+     * @param int $status
+     * @param string $message
+     * @param array|object $data
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public static function jsonError(string $message, $data = [], int $status = HttpStatusEnum::INTERNAL_SERVER_ERROR)
+    {
+        $requestId = self::getRequestId();
+        $message   = "{$message} ({$requestId})";
+
+        return (new Self)->json($data, $message, $status);
     }
 
     /**
