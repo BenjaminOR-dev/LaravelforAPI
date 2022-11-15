@@ -9,6 +9,7 @@ use App\Traits\Enums\ConstantsAccess;
  * HttpStatusEnum
  *
  * @package App\Enums
+ * @author Ing. Benjamín Olvera Rosales
  */
 class HttpStatusEnum
 {

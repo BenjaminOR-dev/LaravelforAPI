@@ -18,7 +18,7 @@ trait ConstantsAccess
      * @param bool $throwException
      * @return void
      */
-    protected function throwException(string $mensaje, bool $throwException): void
+    private function throwException(string $mensaje, bool $throwException): void
     {
         if ($throwException) {
             $class = __CLASS__;
