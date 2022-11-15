@@ -75,7 +75,7 @@ class MakeApi extends Command
 
         } elseif ($this->option('csa') != 'null') { //Controller API
             $this->createController('csa');
-            $this->createService('cs');
+            $this->createService('csa');
         }
 
         $this->createFileApiRoute();
@@ -92,38 +92,17 @@ class MakeApi extends Command
     public function createController(string $option)
     {
         $this->nameController = ($this->option($option) != '') ? $this->option($option) : $this->fileName;
-        $this->nameController = Str::ucfirst($this->nameController) . 'Controller';
+        $this->nameController = Str::ucfirst($this->nameController);
         $pathController = base_path('app\\Http\\Controllers') . '\\' . "{$this->nameController}.php";
 
         if (!File::exists($pathController)) {
             $plus = ($option == 'csa') ? '--api' : '';
-            Artisan::call("make:controller {$this->nameController} {$plus}");
+            Artisan::call("make:customController {$this->nameController} {$plus}");
         } else {
             $this->warn("\n[ATENCIÓN] El archivo de controlador '{$this->nameController}.php' ya existe\n");
         }
 
         $this->makeController = true;
-    }
-
-    /**
-     * Create Service
-     *
-     * @param string $option
-     *
-     * @return void
-     */
-    public function createService(string $option)
-    {
-        $this->nameService = ($this->option($option) != '') ? $this->option($option) : $this->fileName;
-        $this->nameService = Str::ucfirst($this->nameService);
-        $pathService = base_path('app\\Services') . '\\' . "{$this->nameService}.php";
-
-        if (!File::exists($pathService)) {
-            $plus = ($option == 'csa') ? '--api' : '';
-            Artisan::call("make:service {$this->nameService} {$plus}");
-        } else {
-            $this->warn("\n[ATENCIÓN] El Service '{$this->nameService}.php' ya existe\n");
-        }
     }
 
     /**
@@ -164,7 +143,7 @@ class MakeApi extends Command
         return [
             'fileName'       => VarHelper::camelCaseToSpaces(Str::ucfirst($this->fileName)),
             'fileNameSlug'   => Str::slug(VarHelper::camelCaseToSpaces($this->fileName), '-', 'es'),
-            'nameController' => $this->nameController,
+            'nameController' => "{$this->nameController}Controller",
             'nameService'    => "{$this->nameService}Service",
         ];
     }

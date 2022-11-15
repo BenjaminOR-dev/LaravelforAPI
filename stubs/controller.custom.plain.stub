@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Helpers\ClassHelper;
+use Illuminate\Http\Request;
+use App\Helpers\ResponseHelper;
+use App\Services\{{ classNameService }};
+use App\Http\Controllers\Controller;
+use App\Requests\Services\{{ classNameService }} as RulesRequest;
+
+class {{ classNameController }} extends Controller
+{
+    /**
+     * Nombre de la clase
+     *
+     * @var string
+     */
+    public string $className;
+
+    /**
+     * Construct
+     *
+     * @return void
+     */
+    public function _construct()
+    {
+        $this->className = ClassHelper::getName(__CLASS__);
+    }
+
+    /**
+     * Example method
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function exampleMethod()
+    {
+        $exampleMethod = {{ classNameService }}Service::exampleMethod();
+        return ResponseHelper::json($exampleMethod, "ExampleMessage");
+    }
+}
