@@ -67,7 +67,7 @@ class Handler extends ExceptionHandler
     public function handleException(Throwable $th)
     {
         $status  = $this->isHttpException($th) ? $th->getStatusCode() : HttpStatusEnum::INTERNAL_SERVER_ERROR;
-        $message = trim($th->getMessage()) === '' ? $this->globalErrorMessage : $th->getMessage();
+        $message = trim($th->getMessage()) === '' ? null : $th->getMessage();
         $data    = [];
 
         if (config('app.debug')) {
@@ -96,7 +96,7 @@ class Handler extends ExceptionHandler
             $status  = HttpStatusEnum::NOT_FOUND;
             $th      = $th->getPrevious();
 
-            if (trim($message) === '') {
+            if (!$message) {
                 $model = class_basename($th->getModel());
                 $id    = $th->getIds()[0];
                 $message = "No hay resultados para el modelo {$model} {$id}";
@@ -107,36 +107,28 @@ class Handler extends ExceptionHandler
 
         if ($th instanceof AuthenticationException) {
             $status  = HttpStatusEnum::UNAUTHORIZED;
-            if (trim($message) === '') {
-                $message = 'No autorizado';
-            }
+            if (!$message) $message = 'No autorizado';
 
             return ResponseHelper::jsonError($message, $data, $status);
         }
 
         if ($th instanceof AuthorizationException) {
             $status  = HttpStatusEnum::FORBIDDEN;
-            if (trim($message) === '') {
-                $message = 'Acción prohibida';
-            }
+            if (!$message) $message = 'Acción prohibida';
 
             return ResponseHelper::jsonError($message, $data, $status);
         }
 
         if ($th instanceof NotFoundHttpException) {
             $status  = HttpStatusEnum::NOT_FOUND;
-            if (trim($message) === '') {
-                $message = 'No se encontró';
-            }
+            if (!$message) $message = 'No se encontró';
 
             return ResponseHelper::jsonError($message, $data, $status);
         }
 
         if ($th instanceof MethodNotAllowedHttpException) {
             $status  = HttpStatusEnum::METHOD_NOT_ALLOWED;
-            if (trim($message) === '') {
-                $message = 'Método no permitido';
-            }
+            if (!$message) $message = 'Método no permitido';
 
             return ResponseHelper::jsonError($message, $data, $status);
         }
@@ -151,16 +143,14 @@ class Handler extends ExceptionHandler
 
         if ($th instanceof HttpException) {
             $status  = $th->getStatusCode();
-            if (trim($message) === '') {
-                $message = 'Error';
-            }
+            if (!$message) $message = 'Error';
 
             return ResponseHelper::jsonError($message, $data, $status);
         }
 
         if ($th instanceof ThrottleRequestsException) {
             $status  = HttpStatusEnum::TOO_MANY_REQUESTS;
-            $message = 'Demasiadas solicitudes';
+            if (!$message) $message = 'Demasiadas solicitudes';
 
             return ResponseHelper::jsonError($message, $data, $status);
         }
@@ -178,7 +168,9 @@ class Handler extends ExceptionHandler
          * ****************************************
          */
 
+        $message = $message ?? $this->globalErrorMessage;
         if (!config('app.debug')) $data = $dataDev;
+
         return ResponseHelper::jsonError($message, $data, $status);
     }
 }
