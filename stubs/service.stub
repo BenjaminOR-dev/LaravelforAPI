@@ -1,15 +1,12 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Services;
 
 use App\Helpers\ClassHelper;
-use Illuminate\Http\Request;
-use App\Helpers\ResponseHelper;
-use App\Services\{{ className }};
-use {{ rootNamespace }}Http\Controllers\Controller;
+use App\Helpers\ValidatorHelper;
 use App\Requests\Services\{{ className }} as RulesRequest;
 
-class {{ class }} extends Controller
+class {{ className }}
 {
     /**
      * Nombre de la clase
@@ -31,11 +28,14 @@ class {{ class }} extends Controller
     /**
      * Example method
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return <type> $example
      */
-    public function exampleMethod()
+    public static function exampleMethod()
     {
-        //
-        //return ResponseHelper::json([], "ExampleMessage");
+        $self = new Self();
+
+        # Code
+
+        //return [];
     }
 }

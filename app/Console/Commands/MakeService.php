@@ -9,26 +9,26 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 /**
- * MakeEnum
+ * MakeService
  *
  * @package App\Console\Commands
  * @author Ing. Benjamin Olvera Rosales
  */
-class MakeEnum extends Command
+class MakeService extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'make:enum {nombreArchivo?}';
+    protected $signature = 'make:service {nombreArchivo?}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Crea un archivo Enum';
+    protected $description = 'Crea un archivo Service';
 
     /**
      * Create a new command instance.
@@ -61,7 +61,7 @@ class MakeEnum extends Command
             exit;
         }
 
-        $this->fileName = Str::ucfirst(Str::camel($this->argument('nombreArchivo'))) . 'Enum';
+        $this->fileName = Str::ucfirst(Str::camel($this->argument('nombreArchivo'))) . 'Service';
 
         $this->createHelper();
         $this->info("El comando se ha ejecutado correctamente!");
@@ -72,11 +72,11 @@ class MakeEnum extends Command
      */
     public function createHelper()
     {
-        $fileApiPath = base_path('app\\Enums') . '\\' . "{$this->fileName}.php";
+        $fileApiPath = base_path('app\\Services') . '\\' . "{$this->fileName}.php";
         if (!File::exists($fileApiPath)) {
             File::put($fileApiPath, StubsHelper::getSourceFile($this->getStubPath(), $this->getStubData()));
         } else {
-            $this->warn("\n[ATENCIÓN] El Enum '{$this->fileName}.php' ya existe\n");
+            $this->warn("\n[ATENCIÓN] El Service '{$this->fileName}.php' ya existe\n");
         }
     }
 
@@ -87,7 +87,7 @@ class MakeEnum extends Command
      */
     public function getStubPath()
     {
-        return base_path('stubs') . '\\' . 'enum.stub';
+        return base_path('stubs') . '\\' . 'service.stub';
     }
 
     /**

@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 /**
- * Helper command
+ * MakeHelper
  *
- * @author Ing. Benjamin Olvera Rosales
  * @package App\Console\Commands
+ * @author Ing. Benjamin Olvera Rosales
  */
 class MakeHelper extends Command
 {

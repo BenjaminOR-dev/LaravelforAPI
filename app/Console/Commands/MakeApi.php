@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Validator;
 
 /**
- * FileApi command
+ * MakeApi
  *
- * @author Ing. Benjamin Olvera Rosales
  * @package App\Console\Commands
+ * @author Ing. Benjamin Olvera Rosales
  */
 class MakeApi extends Command
 {

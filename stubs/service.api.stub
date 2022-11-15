@@ -1,0 +1,102 @@
+<?php
+
+namespace App\Services;
+
+use App\Helpers\ClassHelper;
+use App\Helpers\ValidatorHelper;
+use App\Requests\Services\{{ className }} as RulesRequest;
+
+class {{ className }}
+{
+    /**
+     * Nombre de la clase
+     *
+     * @var string
+     */
+    public string $className;
+
+    /**
+     * Construct
+     *
+     * @return void
+     */
+    public function __construct() : void
+    {
+        $this->className = ClassHelper::getName(__CLASS__);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return <type> $example
+     */
+    public static function index()
+    {
+        $self = new Self();
+
+        # code
+
+        //return [];
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  array<\App\Requests\Services\{{ className }}\Store>  $data
+     * @return <type> $example
+     */
+    public static function store(array $data)
+    {
+        $self = new Self();
+
+        # code
+
+        //return [];
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return <type> $example
+     */
+    public static function show(int $id)
+    {
+        $self = new Self();
+
+        # code
+
+        //return [];
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  array<\App\Requests\Services\{{ className }}\Update>  $data
+     * @param  int  $id
+     * @return <type> $example
+     */
+    public static function update(array $data, int $id)
+    {
+        $self = new Self();
+
+        # code
+
+        //return [];
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return <type> $example
+     */
+    public static function destroy(int $id)
+    {
+        $self = new Self();
+
+        # code
+
+        //return [];
+    }
+}
