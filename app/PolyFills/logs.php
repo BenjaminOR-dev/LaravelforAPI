@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Log;
 
 /**
- * Logs Polyfill
+ * Logs
  *
  * @package App\PolyFills
  * @author Ing. Benjamin Olvera Rosales
