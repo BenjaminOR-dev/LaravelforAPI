@@ -98,7 +98,7 @@ class Handler extends ExceptionHandler
             if (trim($message) === '') {
                 $model = class_basename($th->getModel());
                 $id    = $th->getIds()[0];
-                $message = "No hay resultados para el modelo $model $id";
+                $message = "No hay resultados para el modelo {$model} {$id}";
             }
 
             return ResponseHelper::jsonError($message, $data, $status);
