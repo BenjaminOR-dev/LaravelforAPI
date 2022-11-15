@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Helpers\ClassHelper;
 use App\Helpers\ValidatorHelper;
+use Illuminate\Support\Facades\DB;
 use App\Requests\Services\{{ className }} as RulesRequest;
 
 class {{ className }}
@@ -26,13 +27,18 @@ class {{ className }}
     }
 
     /**
-     * Display a listing of the resource.
+     * Retorna una lista de los recursos
      *
+     * @param  array<\App\Requests\Services\{{ className }}\Index>  $data
+     * @param  bool  $validateData
      * @return <type> $example
      */
-    public static function index()
+    public static function index(array $data, bool $validateData = true)
     {
         $self = new Self();
+
+        if ($validateData) $data = ValidatorHelper::make(RulesRequest\Index::class, $data);
+        $request = new RulesRequest\Index($data);
 
         # code
 
@@ -40,29 +46,45 @@ class {{ className }}
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda un nuevo recurso
      *
      * @param  array<\App\Requests\Services\{{ className }}\Store>  $data
+     * @param  bool  $validateData
      * @return <type> $example
      */
-    public static function store(array $data)
+    public static function store(array $data, bool $validateData = true)
     {
         $self = new Self();
 
-        # code
+        if ($validateData) $data = ValidatorHelper::make(RulesRequest\Store::class, $data);
+        $request = new RulesRequest\Store($data);
+
+        DB::beginTransaction();
+        try {
+            # code
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            throw $th;
+        }
 
         //return [];
     }
 
     /**
-     * Display the specified resource.
+     * Muestra un recurso en especifico
      *
-     * @param  int  $id
+     * @param  array<\App\Requests\Services\{{ className }}\Show>  $data
+     * @param  bool  $validateData
      * @return <type> $example
      */
-    public static function show(int $id)
+    public static function show(array $data)
     {
         $self = new Self();
+
+        if ($validateData) $data = ValidatorHelper::make(RulesRequest\Show::class, $data);
+        $request = new RulesRequest\Show($data);
 
         # code
 
@@ -70,32 +92,55 @@ class {{ className }}
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza un recurso en especifico
      *
      * @param  array<\App\Requests\Services\{{ className }}\Update>  $data
-     * @param  int  $id
+     * @param  bool  $validateData
      * @return <type> $example
      */
-    public static function update(array $data, int $id)
+    public static function update(array $data, bool $validateData = true)
     {
         $self = new Self();
 
-        # code
+        if ($validateData) $data = ValidatorHelper::make(RulesRequest\Update::class, $data);
+        $request = new RulesRequest\Update($data);
+
+        DB::beginTransaction();
+        try {
+            # code
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            throw $th;
+        }
 
         //return [];
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un recurso en especifico
      *
-     * @param  int  $id
+     * @param  array<\App\Requests\Services\{{ className }}\Destroy>  $data
+     * @param  bool  $validateData
      * @return <type> $example
      */
-    public static function destroy(int $id)
+    public static function destroy(array $data, bool $validateData = true)
     {
         $self = new Self();
 
-        # code
+        if ($validateData) $data = ValidatorHelper::make(RulesRequest\Destroy::class, $data);
+        $request = new RulesRequest\Destroy($data);
+
+        DB::beginTransaction();
+        try {
+            # code
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            throw $th;
+        }
 
         //return [];
     }

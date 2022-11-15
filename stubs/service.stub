@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Helpers\ClassHelper;
 use App\Helpers\ValidatorHelper;
+use Illuminate\Support\Facades\DB;
 use App\Requests\Services\{{ className }} as RulesRequest;
 
 class {{ className }}
