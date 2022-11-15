@@ -5,9 +5,9 @@ namespace {{ namespace }};
 use App\Helpers\ClassHelper;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseHelper;
-use App\Services\{{ className }};
+use App\Services\{{ class }};
 use {{ rootNamespace }}Http\Controllers\Controller;
-use App\Requests\Services\{{ className }} as RulesRequest;
+use App\Requests\Services\{{ class }} as RulesRequest;
 
 class {{ class }} extends Controller
 {
@@ -35,7 +35,7 @@ class {{ class }} extends Controller
      */
     public function exampleMethod()
     {
-        $exampleMethod = {{ className }}Service::exampleMethod();
+        $exampleMethod = {{ class }}Service::exampleMethod();
         return ResponseHelper::json($exampleMethod, "ExampleMessage");
     }
 }

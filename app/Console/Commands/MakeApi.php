@@ -71,8 +71,11 @@ class MakeApi extends Command
 
         if ($this->option('cs') != 'null') { //Controller
             $this->createController('cs');
+            $this->createService('cs');
+
         } elseif ($this->option('csa') != 'null') { //Controller API
             $this->createController('csa');
+            $this->createService('cs');
         }
 
         $this->createFileApiRoute();
@@ -100,6 +103,27 @@ class MakeApi extends Command
         }
 
         $this->makeController = true;
+    }
+
+    /**
+     * Create Service
+     *
+     * @param string $option
+     *
+     * @return void
+     */
+    public function createService(string $option)
+    {
+        $this->nameService = ($this->option($option) != '') ? $this->option($option) : $this->fileName;
+        $this->nameService = Str::ucfirst($this->nameService);
+        $pathService = base_path('app\\Services') . '\\' . "{$this->nameService}.php";
+
+        if (!File::exists($pathService)) {
+            $plus = ($option == 'csa') ? '--api' : '';
+            Artisan::call("make:service {$this->nameService} {$plus}");
+        } else {
+            $this->warn("\n[ATENCIÓN] El Service '{$this->nameService}.php' ya existe\n");
+        }
     }
 
     /**
@@ -141,6 +165,7 @@ class MakeApi extends Command
             'fileName'       => VarHelper::camelCaseToSpaces(Str::ucfirst($this->fileName)),
             'fileNameSlug'   => Str::slug(VarHelper::camelCaseToSpaces($this->fileName), '-', 'es'),
             'nameController' => $this->nameController,
+            'nameService'    => "{$this->nameService}Service",
         ];
     }
 }
