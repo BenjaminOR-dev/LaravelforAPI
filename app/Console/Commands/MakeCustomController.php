@@ -68,6 +68,7 @@ class MakeCustomController extends Command
         if ($this->option('api') != 'null') { //Controller api
             $this->createService('api');
             $this->createController('api');
+            $this->createRequests();
         } else {
             $this->createService();
             $this->createController();
@@ -80,7 +81,6 @@ class MakeCustomController extends Command
      * Create Service
      *
      * @param string $option
-     *
      * @return void
      */
     public function createService(?string $option = null)
@@ -103,7 +103,10 @@ class MakeCustomController extends Command
     }
 
     /**
-     * Create file api routes
+     * Create Controller
+     *
+     * @param string $option
+     * @return void
      */
     public function createController(?string $type = null)
     {
@@ -119,6 +122,49 @@ class MakeCustomController extends Command
             File::put($fileApiPath, StubsHelper::getSourceFile($stub, $this->getStubData()));
         } else {
             $this->warn("\n[ATENCIÓN] El Controller '{$this->fileName}.php' ya existe\n");
+        }
+    }
+
+    /**
+     * Create requests
+     *
+     * @return void
+     */
+    public function createRequests()
+    {
+        $filesPath = base_path('app\\Http\\Requests\\Services') . '\\' . "{$this->fileName}";
+        if (!File::exists("{$filesPath}")) {
+            File::makeDirectory($filesPath);
+        }
+
+        if (!File::exists($filesPath . '\\' . 'Index.php')) {
+            Artisan::call("make:request {$filesPath}" . '\\' . 'Index');
+        } else {
+            $this->warn("\n[ATENCIÓN] El Request '$filesPath. '\\'. 'Index.php' ya existe\n");
+        }
+
+        if (!File::exists($filesPath . '\\' . 'Show.php')) {
+            Artisan::call("make:request {$filesPath}" . '\\' . 'Show');
+        } else {
+            $this->warn("\n[ATENCIÓN] El Request '$filesPath. '\\'. 'Show.php' ya existe\n");
+        }
+
+        if (!File::exists($filesPath . '\\' . 'Store.php')) {
+            Artisan::call("make:request {$filesPath}" . '\\' . 'Store');
+        } else {
+            $this->warn("\n[ATENCIÓN] El Request '$filesPath. '\\'. 'Store.php' ya existe\n");
+        }
+
+        if (!File::exists($filesPath . '\\' . 'Update.php')) {
+            Artisan::call("make:request {$filesPath}" . '\\' . 'Update');
+        } else {
+            $this->warn("\n[ATENCIÓN] El Request '$filesPath. '\\'. 'Update.php' ya existe\n");
+        }
+
+        if (!File::exists($filesPath . '\\' . 'Destroy.php')) {
+            Artisan::call("make:request {$filesPath}" . '\\' . 'Destroy');
+        } else {
+            $this->warn("\n[ATENCIÓN] El Request '$filesPath. '\\'. 'Destroy.php' ya existe\n");
         }
     }
 
