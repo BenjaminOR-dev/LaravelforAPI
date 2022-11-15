@@ -18,7 +18,7 @@ class ResponseHelper
      * Response standard for API
      *
      * @param int $status
-     * @param array|object|null $data
+     * @param array|object|string|int|null $data
      * @param string|null $message
      * @return \Illuminate\Http\JsonResponse
      */
@@ -56,7 +56,7 @@ class ResponseHelper
     /**
      * Response json
      *
-     * @param array|object|null $data
+     * @param array|object|string|int|null $data
      * @param string|null $message
      * @param int $status
      * @return \Illuminate\Http\JsonResponse
@@ -69,9 +69,9 @@ class ResponseHelper
     /**
      * Response json error
      *
-     * @param int $status
      * @param string $message
-     * @param array|object|null $data
+     * @param array|object|string|int|null $data
+     * @param int $status
      * @return \Illuminate\Http\JsonResponse
      */
     public static function jsonError(string $message, $data = null, int $status = HttpStatusEnum::INTERNAL_SERVER_ERROR)
