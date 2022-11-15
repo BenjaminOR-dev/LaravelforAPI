@@ -21,7 +21,7 @@ class {{ className }}
      *
      * @return void
      */
-    public function __construct() : void
+    public function _construct()
     {
         $this->className = ClassHelper::getName(__CLASS__);
     }

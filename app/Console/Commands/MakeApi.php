@@ -23,7 +23,7 @@ class MakeApi extends Command
      *
      * @var string
      */
-    protected $signature = 'make:api {nombreArchivo?} {--c=null} {--ca=null}';
+    protected $signature = 'make:api {nombreArchivo?} {--cs=null} {--csa=null}';
 
     /**
      * The console command description.
@@ -54,9 +54,9 @@ class MakeApi extends Command
     public function handle()
     {
         $validator = Validator::make(array_merge($this->arguments(), $this->options()), [
-            'nombreArchivo' => ['required', 'string', 'max:255'],
-            'c'             => ['nullable', 'string', 'max:255'],
-            'ca'            => ['nullable', 'string', 'max:255'],
+            'nombreArchivo'  => ['required', 'string', 'max:255'],
+            'cs'             => ['nullable', 'string', 'max:255'],
+            'csa'            => ['nullable', 'string', 'max:255'],
         ]);
 
         if ($validator->fails()) {
@@ -69,10 +69,10 @@ class MakeApi extends Command
 
         $this->fileName = Str::camel($this->argument('nombreArchivo'));
 
-        if ($this->option('c') != 'null') { //Controller
-            $this->createController('c');
-        } elseif ($this->option('ca') != 'null') { //Controller API
-            $this->createController('ca');
+        if ($this->option('cs') != 'null') { //Controller
+            $this->createController('cs');
+        } elseif ($this->option('csa') != 'null') { //Controller API
+            $this->createController('csa');
         }
 
         $this->createFileApiRoute();
@@ -93,7 +93,7 @@ class MakeApi extends Command
         $pathController = base_path('app\\Http\\Controllers') . '\\' . "{$this->nameController}.php";
 
         if (!File::exists($pathController)) {
-            $plus = ($option == 'ca') ? '--api' : '';
+            $plus = ($option == 'csa') ? '--api' : '';
             Artisan::call("make:controller {$this->nameController} {$plus}");
         } else {
             $this->warn("\n[ATENCIÓN] El archivo de controlador '{$this->nameController}.php' ya existe\n");

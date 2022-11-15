@@ -21,7 +21,7 @@ class MakeService extends Command
      *
      * @var string
      */
-    protected $signature = 'make:service {nombreArchivo?}';
+    protected $signature = 'make:service {nombreArchivo?} {--api=null}';
 
     /**
      * The console command description.
@@ -63,18 +63,30 @@ class MakeService extends Command
 
         $this->fileName = Str::ucfirst(Str::camel($this->argument('nombreArchivo'))) . 'Service';
 
-        $this->createHelper();
+        if ($this->option('api') != 'null') { //Service api
+            $this->createService('api');
+        } else {
+            $this->createService();
+        }
+
         $this->info("El comando se ha ejecutado correctamente!");
     }
 
     /**
      * Create file api routes
      */
-    public function createHelper()
+    public function createService(?string $type = null)
     {
         $fileApiPath = base_path('app\\Services') . '\\' . "{$this->fileName}.php";
+
         if (!File::exists($fileApiPath)) {
-            File::put($fileApiPath, StubsHelper::getSourceFile($this->getStubPath(), $this->getStubData()));
+            if ($type == 'api') {
+                $stub = $this->getStubApiPath();
+            } else {
+                $stub = $this->getStubPath();
+            }
+
+            File::put($fileApiPath, StubsHelper::getSourceFile($stub, $this->getStubData()));
         } else {
             $this->warn("\n[ATENCIÓN] El Service '{$this->fileName}.php' ya existe\n");
         }
@@ -88,6 +100,16 @@ class MakeService extends Command
     public function getStubPath()
     {
         return base_path('stubs') . '\\' . 'service.stub';
+    }
+
+    /**
+     * Return the stub file path
+     *
+     * @return string
+     */
+    public function getStubApiPath()
+    {
+        return base_path('stubs') . '\\' . 'service.api.stub';
     }
 
     /**
