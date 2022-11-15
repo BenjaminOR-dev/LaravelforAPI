@@ -143,8 +143,7 @@ class MakeApi extends Command
         return [
             'fileName'       => VarHelper::camelCaseToSpaces(Str::ucfirst($this->fileName)),
             'fileNameSlug'   => Str::slug(VarHelper::camelCaseToSpaces($this->fileName), '-', 'es'),
-            'nameController' => "{$this->nameController}Controller",
-            'nameService'    => "{$this->nameService}Service",
+            'nameController' => "{$this->nameController}Controller"
         ];
     }
 }
