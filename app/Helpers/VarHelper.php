@@ -3,8 +3,9 @@
 namespace App\Helpers;
 
 /**
- * VarHelper class
+ * VarHelper
  *
+ * @package App\Helpers
  * @author Ing. Benjamin Olvera Rosales
  */
 class VarHelper

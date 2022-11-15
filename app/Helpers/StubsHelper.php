@@ -5,8 +5,9 @@ namespace App\Helpers;
 use Illuminate\Support\Str;
 
 /**
- * StubsHelper class
+ * StubsHelper
  *
+ * @package App\Helpers
  * @author Ing. Benjamin Olvera Rosales
  */
 class StubsHelper
@@ -16,7 +17,6 @@ class StubsHelper
      *
      * @param string $stubPath
      * @param array $stubData
-     *
      * @return bool|mixed|string
      */
     public static function getSourceFile(string $stubPath, array $stubData)

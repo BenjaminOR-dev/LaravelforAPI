@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Logs Polyfill
+ *
+ * @package App\PolyFills
+ * @author Ing. Benjamin Olvera Rosales
+ */
+
 
 /**
  * Verifica que no exista la funcion global info_ y si es asi la crea
@@ -13,9 +20,8 @@ if (!function_exists('info_')) {
      * @param string $message
      * @param array $context
      * @return void
-     * @author Ing. Benjamín Olvera Rosales
      */
-    function info_($message = '', array $context = []): void
+    function info_(string $message = '', array $context = []): void
     {
         Log::info($message, $context);
     }
@@ -31,9 +37,8 @@ if (!function_exists('debug_')) {
      * @param string $message
      * @param array $context
      * @return void
-     * @author Ing. Benjamín Olvera Rosales
      */
-    function debug_(string $message = '', array $context = []) : void
+    function debug_(string $message = '', array $context = []): void
     {
         Log::debug($message, $context);
     }
@@ -49,9 +54,8 @@ if (!function_exists('error_')) {
      * @param string $message
      * @param array $context
      * @return void
-     * @author Ing. Benjamín Olvera Rosales
      */
-    function error_(string $message = '', array $context = []) : void
+    function error_(string $message = '', array $context = []): void
     {
         Log::error($message, $context);
     }
@@ -67,9 +71,8 @@ if (!function_exists('alert_')) {
      * @param string $message
      * @param array $context
      * @return void
-     * @author Ing. Benjamín Olvera Rosales
      */
-    function alert_(string $message = '', array $context = []) : void
+    function alert_(string $message = '', array $context = []): void
     {
         Log::alert($message, $context);
     }
@@ -85,9 +88,8 @@ if (!function_exists('critical_')) {
      * @param string $message
      * @param array $context
      * @return void
-     * @author Ing. Benjamín Olvera Rosales
      */
-    function critical_(string $message = '', array $context = []) : void
+    function critical_(string $message = '', array $context = []): void
     {
         Log::critical($message, $context);
     }
@@ -103,9 +105,8 @@ if (!function_exists('emergency_')) {
      * @param string $message
      * @param array $context
      * @return void
-     * @author Ing. Benjamín Olvera Rosales
      */
-    function emergency_(string $message = '', array $context = []) : void
+    function emergency_(string $message = '', array $context = []): void
     {
         Log::emergency($message, $context);
     }
@@ -121,9 +122,8 @@ if (!function_exists('notice_')) {
      * @param string $message
      * @param array $context
      * @return void
-     * @author Ing. Benjamín Olvera Rosales
      */
-    function notice_(string $message = '', array $context = []) : void
+    function notice_(string $message = '', array $context = []): void
     {
         Log::notice($message, $context);
     }
@@ -139,9 +139,8 @@ if (!function_exists('warning_')) {
      * @param string $message
      * @param array $context
      * @return void
-     * @author Ing. Benjamín Olvera Rosales
      */
-    function warning_(string $message = '', array $context = []) : void
+    function warning_(string $message = '', array $context = []): void
     {
         Log::warning($message, $context);
     }

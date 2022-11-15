@@ -35,7 +35,7 @@
             "Tests\\": "tests/"
         },
         "files": [
-            "app/PolyFills/logger.php"
+            "app/PolyFills/logs.php"
         ]
     },
     "scripts": {

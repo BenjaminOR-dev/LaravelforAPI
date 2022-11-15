@@ -5,8 +5,9 @@ namespace App\Helpers;
 use App\Enums\HttpStatusEnum;
 
 /**
- * ResponseHelper class
+ * ResponseHelper
  *
+ * @package App\Helpers
  * @author Ing. Benjamin Olvera Rosales
  */
 class ResponseHelper
