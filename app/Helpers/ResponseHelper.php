@@ -18,17 +18,18 @@ class ResponseHelper
      * Response standard for API
      *
      * @param int $status
-     * @param array|object $data
+     * @param array|object|null $data
      * @param string|null $message
      * @return \Illuminate\Http\JsonResponse
      */
-    private function standard(int $status, $data = [], string $message = null)
+    private function standard(int $status, $data = null, string $message = null)
     {
         $response = [
             'status'      => $status,
             'request-id'  => self::getRequestId(),
             'server'      => [
                 'host'     => request()->getHost(),
+                'url'      => request()->url(),
                 'datetime' => Carbon::now()->toDateTimeString()
             ],
             'message'     => $message,
@@ -55,12 +56,12 @@ class ResponseHelper
     /**
      * Response json
      *
-     * @param array|object $data
+     * @param array|object|null $data
      * @param string|null $message
      * @param int $status
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function json($data = [], string $message = null, int $status = HttpStatusEnum::OK)
+    public static function json($data = null, string $message = null, int $status = HttpStatusEnum::OK)
     {
         return (new Self)->standard($status, $data, $message);
     }
@@ -70,10 +71,10 @@ class ResponseHelper
      *
      * @param int $status
      * @param string $message
-     * @param array|object $data
+     * @param array|object|null $data
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function jsonError(string $message, $data = [], int $status = HttpStatusEnum::INTERNAL_SERVER_ERROR)
+    public static function jsonError(string $message, $data = null, int $status = HttpStatusEnum::INTERNAL_SERVER_ERROR)
     {
         $requestId = self::getRequestId();
         $message   = "{$message} ({$requestId})";

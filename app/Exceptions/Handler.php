@@ -20,13 +20,6 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 class Handler extends ExceptionHandler
 {
     /**
-     * Global error message
-     *
-     * @var string
-     */
-    private string $globalErrorMessage = 'Internal Server Error. Try later';
-
-    /**
      * A list of the exception types that are not reported.
      *
      * @var array<int, class-string<Throwable>>
@@ -53,22 +46,26 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->renderable(function (Throwable $th) {
-            return $this->handleException($th);
+        $this->reportable(function (Throwable $e) {
+            //
         });
     }
 
     /**
-     * Handle an exception.
+     * Render an exception into an HTTP response.
      *
+     * @param \Illuminate\Http\Request $request
      * @param \Throwable $e
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Throwable
      */
-    public function handleException(Throwable $th)
+    public function render($request, Throwable $th)
     {
+        if (!$request->wantsJson()) return parent::render($request, $th);
+
         $status  = $this->isHttpException($th) ? $th->getStatusCode() : HttpStatusEnum::INTERNAL_SERVER_ERROR;
         $message = trim($th->getMessage()) === '' ? null : $th->getMessage();
-        $data    = [];
+        $data    = null;
 
         if (config('app.debug')) {
             $dataDev = [
