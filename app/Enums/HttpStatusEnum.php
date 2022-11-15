@@ -2,7 +2,8 @@
 
 namespace App\Enums;
 
-use App\Traits\ConstantsAccess;
+use App\Traits\Enums\ConstantsAccess;
+
 
 /**
  * HttpStatusEnum

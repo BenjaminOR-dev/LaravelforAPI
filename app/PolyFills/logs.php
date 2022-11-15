@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\ResponseHelper;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -9,6 +10,20 @@ use Illuminate\Support\Facades\Log;
  * @author Ing. Benjamin Olvera Rosales
  */
 
+/**
+ * Verifica que no exista la funcion global getRequestId_ y si es asi la crea
+ */
+if (!function_exists('getRequestId_')) {
+    /**
+     * Obtiene el request id
+     *
+     * @return string
+     */
+    function getRequestId_(): string
+    {
+        return ResponseHelper::getRequestId();
+    }
+}
 
 /**
  * Verifica que no exista la funcion global info_ y si es asi la crea
@@ -23,6 +38,7 @@ if (!function_exists('info_')) {
      */
     function info_(string $message = '', array $context = []): void
     {
+        $context = array_merge($context, ['request-id' => getRequestId_()]);
         Log::info($message, $context);
     }
 }
@@ -40,6 +56,7 @@ if (!function_exists('debug_')) {
      */
     function debug_(string $message = '', array $context = []): void
     {
+        $context = array_merge($context, ['request-id' => getRequestId_()]);
         Log::debug($message, $context);
     }
 }
@@ -57,6 +74,7 @@ if (!function_exists('error_')) {
      */
     function error_(string $message = '', array $context = []): void
     {
+        $context = array_merge($context, ['request-id' => getRequestId_()]);
         Log::error($message, $context);
     }
 }
@@ -74,6 +92,7 @@ if (!function_exists('alert_')) {
      */
     function alert_(string $message = '', array $context = []): void
     {
+        $context = array_merge($context, ['request-id' => getRequestId_()]);
         Log::alert($message, $context);
     }
 }
@@ -91,6 +110,7 @@ if (!function_exists('critical_')) {
      */
     function critical_(string $message = '', array $context = []): void
     {
+        $context = array_merge($context, ['request-id' => getRequestId_()]);
         Log::critical($message, $context);
     }
 }
@@ -108,6 +128,7 @@ if (!function_exists('emergency_')) {
      */
     function emergency_(string $message = '', array $context = []): void
     {
+        $context = array_merge($context, ['request-id' => getRequestId_()]);
         Log::emergency($message, $context);
     }
 }
@@ -125,6 +146,7 @@ if (!function_exists('notice_')) {
      */
     function notice_(string $message = '', array $context = []): void
     {
+        $context = array_merge($context, ['request-id' => getRequestId_()]);
         Log::notice($message, $context);
     }
 }
@@ -142,6 +164,7 @@ if (!function_exists('warning_')) {
      */
     function warning_(string $message = '', array $context = []): void
     {
+        $context = array_merge($context, ['request-id' => getRequestId_()]);
         Log::warning($message, $context);
     }
 }
