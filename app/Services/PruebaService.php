@@ -5,9 +5,9 @@ namespace App\Services;
 use App\Helpers\ClassHelper;
 use App\Helpers\ValidatorHelper;
 use Illuminate\Support\Facades\DB;
-use App\Requests\Services\{{ className }} as RulesRequest;
+use App\Requests\Services\PruebaService as RulesRequest;
 
-class {{ className }}
+class PruebaService
 {
     /**
      * Nombre de la clase
@@ -29,7 +29,7 @@ class {{ className }}
     /**
      * Retorna una lista de los recursos
      *
-     * @param  array<\App\Requests\Services\{{ className }}\Index>  $data
+     * @param  array<\App\Requests\Services\PruebaService\Index>  $data
      * @param  bool  $validateData
      * @return <type> $example
      */
@@ -48,7 +48,7 @@ class {{ className }}
     /**
      * Guarda un nuevo recurso
      *
-     * @param  array<\App\Requests\Services\{{ className }}\Store>  $data
+     * @param  array<\App\Requests\Services\PruebaService\Store>  $data
      * @param  bool  $validateData
      * @return <type> $example
      */
@@ -75,11 +75,11 @@ class {{ className }}
     /**
      * Muestra un recurso en especifico
      *
-     * @param  array<\App\Requests\Services\{{ className }}\Show>  $data
+     * @param  array<\App\Requests\Services\PruebaService\Show>  $data
      * @param  bool  $validateData
      * @return <type> $example
      */
-    public static function show(array $data, bool $validateData = true)
+    public static function show(array $data)
     {
         $self = new Self();
 
@@ -94,7 +94,7 @@ class {{ className }}
     /**
      * Actualiza un recurso en especifico
      *
-     * @param  array<\App\Requests\Services\{{ className }}\Update>  $data
+     * @param  array<\App\Requests\Services\PruebaService\Update>  $data
      * @param  bool  $validateData
      * @return <type> $example
      */
@@ -121,7 +121,7 @@ class {{ className }}
     /**
      * Elimina un recurso en especifico
      *
-     * @param  array<\App\Requests\Services\{{ className }}\Destroy>  $data
+     * @param  array<\App\Requests\Services\PruebaService\Destroy>  $data
      * @param  bool  $validateData
      * @return <type> $example
      */

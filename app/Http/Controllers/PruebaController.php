@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ClassHelper;
 use App\Helpers\ResponseHelper;
-use App\Services\{{ classNameService }};
+use App\Services\PruebaService;
 use App\Http\Controllers\Controller;
-use App\Requests\Services\{{ classNameService }} as RulesRequest;
+use App\Requests\Services\PruebaService as RulesRequest;
 
-class {{ classNameController }} extends Controller
+class Prueba extends Controller
 {
     /**
      * Nombre de la clase
@@ -30,61 +30,61 @@ class {{ classNameController }} extends Controller
     /**
      * Retorna una lista de los recursos
      *
-     * @param  \App\Requests\Services\{{ classNameService }}\Index  $request
+     * @param  \App\Requests\Services\PruebaService\Index  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(RulesRequest\Index $request)
     {
-        $index = {{ classNameService }}::index($request->validated, false);
+        $index = PruebaService::index($request->validated, false);
         return ResponseHelper::json($index, "ExampleMessage");
     }
 
     /**
      * Guarda un nuevo recurso
      *
-     * @param  \App\Requests\Services\{{ classNameService }}\Store  $request
+     * @param  \App\Requests\Services\PruebaService\Store  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(RulesRequest\Store $request)
     {
-        $store = {{ classNameService }}::store($request->validated, false);
+        $store = PruebaService::store($request->validated, false);
         return ResponseHelper::json($store, "ExampleMessage");
     }
 
     /**
      * Muestra un recurso en especifico
      *
-     * @param  \App\Requests\Services\{{ classNameService }}\Show  $request
+     * @param  \App\Requests\Services\PruebaService\Show  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(RulesRequest\Show $request)
     {
-        $show = {{ classNameService }}::show($request->validated, false);
+        $show = PruebaService::show($request->validated, false);
         return ResponseHelper::json($show, "ExampleMessage");
     }
 
     /**
      * Actualiza un recurso en especifico
      *
-     * @param  \App\Requests\Services\{{ classNameService }}\Update  $request
+     * @param  \App\Requests\Services\PruebaService\Update  $request
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(RulesRequest\Update $request, int $id)
     {
-        $update = {{ classNameService }}::update($request->validated, false);
+        $update = PruebaService::update($request->validated, false);
         return ResponseHelper::json($update, "ExampleMessage");
     }
 
     /**
      * Elimina un recurso en especifico
      *
-     * @param  \App\Requests\Services\{{ classNameService }}\Destroy  $request
+     * @param  \App\Requests\Services\PruebaService\Destroy  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(RulesRequest\Destroy $request)
     {
-        $destroy = {{ classNameService }}::destroy($request->validated, false);
+        $destroy = PruebaService::destroy($request->validated, false);
         return ResponseHelper::json($destroy, "ExampleMessage");
     }
 }

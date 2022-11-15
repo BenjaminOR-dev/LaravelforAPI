@@ -152,7 +152,7 @@ class MakeCustomController extends Command
     {
         return [
             'classNameController' => $this->fileName,
-            'classNameService'    => $this->nameService,
+            'classNameService'    => "{$this->nameService}Service",
         ];
     }
 }

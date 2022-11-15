@@ -34,7 +34,7 @@ class {{ classNameController }} extends Controller
      */
     public function exampleMethod()
     {
-        $exampleMethod = {{ classNameService }}Service::exampleMethod();
+        $exampleMethod = {{ classNameService }}::exampleMethod();
         return ResponseHelper::json($exampleMethod, "ExampleMessage");
     }
 }
