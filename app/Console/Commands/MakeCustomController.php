@@ -66,11 +66,11 @@ class MakeCustomController extends Command
         $this->fileName = Str::ucfirst(Str::camel($this->argument('nombreArchivo')));
 
         if ($this->option('api') != 'null') { //Controller api
-            $this->createController('api');
             $this->createService('api');
+            $this->createController('api');
         } else {
-            $this->createController();
             $this->createService();
+            $this->createController();
         }
 
         $this->info("El comando se ha ejecutado correctamente!");
