@@ -24,7 +24,7 @@ class Handler extends ExceptionHandler
      *
      * @var string
      */
-    private const GLOBAL_ERROR_MESSAGE = 'Internal Server Error. Try later';
+    private string $globalErrorMessage = 'Internal Server Error. Try later';
 
     /**
      * A list of the exception types that are not reported.
@@ -66,8 +66,9 @@ class Handler extends ExceptionHandler
      */
     public function handleException(Throwable $th)
     {
-        $message   = $th->getMessage();
-        $data      = [];
+        $status  = $this->isHttpException($th) ? $th->getStatusCode() : HttpStatusEnum::INTERNAL_SERVER_ERROR;
+        $message = trim($th->getMessage()) === '' ? $this->globalErrorMessage : $th->getMessage();
+        $data    = [];
 
         if (config('app.debug')) {
             $dataDev = [
@@ -177,14 +178,7 @@ class Handler extends ExceptionHandler
          * ****************************************
          */
 
-        $status = $this->isHttpException($th) ? $th->getStatusCode() : HttpStatusEnum::INTERNAL_SERVER_ERROR;
-        $message = self::GLOBAL_ERROR_MESSAGE;
-
-        if (!config('app.debug')) {
-            $message = trim($th->getMessage()) === '' ? $message : $th->getMessage();
-            $data    = $dataDev;
-        }
-
+        if (!config('app.debug')) $data = $dataDev;
         return ResponseHelper::jsonError($message, $data, $status);
     }
 }
