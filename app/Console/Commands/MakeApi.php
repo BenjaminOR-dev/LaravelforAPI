@@ -71,11 +71,9 @@ class MakeApi extends Command
 
         if ($this->option('cs') != 'null') { //Controller
             $this->createController('cs');
-            $this->createService('cs');
 
         } elseif ($this->option('csa') != 'null') { //Controller API
             $this->createController('csa');
-            $this->createService('csa');
         }
 
         $this->createFileApiRoute();

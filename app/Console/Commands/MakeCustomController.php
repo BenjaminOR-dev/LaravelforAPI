@@ -151,7 +151,7 @@ class MakeCustomController extends Command
     public function getStubData()
     {
         return [
-            'classNameController' => $this->fileName,
+            'classNameController' => "{$this->fileName}Controller",
             'classNameService'    => "{$this->nameService}Service",
         ];
     }

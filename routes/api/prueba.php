@@ -2,11 +2,11 @@
 
 /**
  * ---------------------------------------------------------------------------
- * Rutas Api "{{ fileName }}"
+ * Rutas Api "Prueba"
  * ---------------------------------------------------------------------------
  *
- * @api {{host}}/api/{{ fileNameSlug }}
+ * @api {{host}}/api/prueba
  */
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{{ nameController }};
+use App\Http\Controllers\PruebaController;
