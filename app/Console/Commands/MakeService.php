@@ -102,8 +102,8 @@ class MakeService extends Command
      */
     public function createRequests()
     {
-        $filesPathExists = base_path('app\\Http\\Requests\\Services') . '\\' . $this->fileName . 'Service';
-        $filePath = "App/Http/Requests/Services/" . $this->fileName . 'Service';
+        $filesPathExists = base_path('app\\Http\\Requests\\Services') . '\\' . $this->fileName;
+        $filePath = "App/Http/Requests/Services/" . $this->fileName;
 
         if (!File::exists($filesPathExists . '\\' . 'Index.php')) {
             Artisan::call("make:request {$filePath}/Index");
