@@ -29,7 +29,7 @@ class {{ className }}
     /**
      * Retorna una lista de los recursos
      *
-     * @param  array<\App\Requests\Services\{{ className }}\Index>  $data
+     * @param  array<\App\Http\Requests\Services\{{ className }}\Index>  $data
      * @param  bool  $validateData
      * @return <type> $example
      */
@@ -48,7 +48,7 @@ class {{ className }}
     /**
      * Guarda un nuevo recurso
      *
-     * @param  array<\App\Requests\Services\{{ className }}\Store>  $data
+     * @param  array<\App\Http\Requests\Services\{{ className }}\Store>  $data
      * @param  bool  $validateData
      * @return <type> $example
      */
@@ -75,7 +75,7 @@ class {{ className }}
     /**
      * Muestra un recurso en especifico
      *
-     * @param  array<\App\Requests\Services\{{ className }}\Show>  $data
+     * @param  array<\App\Http\Requests\Services\{{ className }}\Show>  $data
      * @param  bool  $validateData
      * @return <type> $example
      */
@@ -94,7 +94,7 @@ class {{ className }}
     /**
      * Actualiza un recurso en especifico
      *
-     * @param  array<\App\Requests\Services\{{ className }}\Update>  $data
+     * @param  array<\App\Http\Requests\Services\{{ className }}\Update>  $data
      * @param  bool  $validateData
      * @return <type> $example
      */
@@ -121,7 +121,7 @@ class {{ className }}
     /**
      * Elimina un recurso en especifico
      *
-     * @param  array<\App\Requests\Services\{{ className }}\Destroy>  $data
+     * @param  array<\App\Http\Requests\Services\{{ className }}\Destroy>  $data
      * @param  bool  $validateData
      * @return <type> $example
      */

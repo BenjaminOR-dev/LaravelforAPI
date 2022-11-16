@@ -6,7 +6,7 @@ use App\Helpers\ClassHelper;
 use App\Helpers\ResponseHelper;
 use App\Services\{{ classNameService }};
 use App\Http\Controllers\Controller;
-use App\Requests\Services\{{ classNameService }} as RulesRequest;
+use App\Http\Requests\Services\{{ classNameService }} as RulesRequest;
 
 class {{ classNameController }} extends Controller
 {
@@ -30,7 +30,7 @@ class {{ classNameController }} extends Controller
     /**
      * Retorna una lista de los recursos
      *
-     * @param  \App\Requests\Services\{{ classNameService }}\Index  $request
+     * @param  \App\Http\Requests\Services\{{ classNameService }}\Index  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(RulesRequest\Index $request)
@@ -42,7 +42,7 @@ class {{ classNameController }} extends Controller
     /**
      * Guarda un nuevo recurso
      *
-     * @param  \App\Requests\Services\{{ classNameService }}\Store  $request
+     * @param  \App\Http\Requests\Services\{{ classNameService }}\Store  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(RulesRequest\Store $request)
@@ -54,7 +54,7 @@ class {{ classNameController }} extends Controller
     /**
      * Muestra un recurso en especifico
      *
-     * @param  \App\Requests\Services\{{ classNameService }}\Show  $request
+     * @param  \App\Http\Requests\Services\{{ classNameService }}\Show  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(RulesRequest\Show $request)
@@ -66,7 +66,7 @@ class {{ classNameController }} extends Controller
     /**
      * Actualiza un recurso en especifico
      *
-     * @param  \App\Requests\Services\{{ classNameService }}\Update  $request
+     * @param  \App\Http\Requests\Services\{{ classNameService }}\Update  $request
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
@@ -79,7 +79,7 @@ class {{ classNameController }} extends Controller
     /**
      * Elimina un recurso en especifico
      *
-     * @param  \App\Requests\Services\{{ classNameService }}\Destroy  $request
+     * @param  \App\Http\Requests\Services\{{ classNameService }}\Destroy  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(RulesRequest\Destroy $request)
