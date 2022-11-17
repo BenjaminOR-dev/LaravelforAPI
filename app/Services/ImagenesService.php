@@ -31,7 +31,7 @@ class ImagenesService
      *
      * @param string $disk
      * @param string $file
-     * @return string $path
+     * @return string $filename
      */
     public static function guardar(string $disk, string $file, string $originalFileName)
     {
