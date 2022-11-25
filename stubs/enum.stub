@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Enums;
-use App\Enums\Traits\ConstantsAccess;
+use App\Traits\Enums\ConstantsAccess;
 
 class {{ className }}
 {
