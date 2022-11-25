@@ -49,23 +49,24 @@ class {{ className }}
      * Guarda un nuevo recurso
      *
      * @param  array<\App\Http\Requests\Services\{{ className }}\Store>  $data
+     * @param  bool  $transactionExists
      * @param  bool  $validateData
      * @return <type> $example
      */
-    public static function store(array $data, bool $validateData = true)
+    public static function store(array $data, bool $transactionExists = false, bool $validateData = true)
     {
         $self = new Self();
 
         if ($validateData) $data = ValidatorHelper::make(RulesRequest\Store::class, $data);
         $request = new RulesRequest\Store($data);
 
-        DB::beginTransaction();
+        if (!$transactionExists) DB::beginTransaction();
         try {
             # code
 
-            DB::commit();
+            if (!$transactionExists) DB::commit();
         } catch (\Throwable $th) {
-            DB::rollback();
+            if (!$transactionExists) DB::rollback();
             throw $th;
         }
 
@@ -95,23 +96,24 @@ class {{ className }}
      * Actualiza un recurso en especifico
      *
      * @param  array<\App\Http\Requests\Services\{{ className }}\Update>  $data
+     * @param  bool  $transactionExists
      * @param  bool  $validateData
      * @return <type> $example
      */
-    public static function update(array $data, bool $validateData = true)
+    public static function update(array $data, bool $transactionExists = false, bool $validateData = true)
     {
         $self = new Self();
 
         if ($validateData) $data = ValidatorHelper::make(RulesRequest\Update::class, $data);
         $request = new RulesRequest\Update($data);
 
-        DB::beginTransaction();
+        if (!$transactionExists) DB::beginTransaction();
         try {
             # code
 
-            DB::commit();
+            if (!$transactionExists) DB::commit();
         } catch (\Throwable $th) {
-            DB::rollback();
+            if (!$transactionExists) DB::rollback();
             throw $th;
         }
 
@@ -122,23 +124,24 @@ class {{ className }}
      * Elimina un recurso en especifico
      *
      * @param  array<\App\Http\Requests\Services\{{ className }}\Destroy>  $data
+     * @param  bool  $transactionExists
      * @param  bool  $validateData
      * @return <type> $example
      */
-    public static function destroy(array $data, bool $validateData = true)
+    public static function destroy(array $data, bool $transactionExists = false, bool $validateData = true)
     {
         $self = new Self();
 
         if ($validateData) $data = ValidatorHelper::make(RulesRequest\Destroy::class, $data);
         $request = new RulesRequest\Destroy($data);
 
-        DB::beginTransaction();
+        if (!$transactionExists) DB::beginTransaction();
         try {
             # code
 
-            DB::commit();
+            if (!$transactionExists) DB::commit();
         } catch (\Throwable $th) {
-            DB::rollback();
+            if (!$transactionExists) DB::rollback();
             throw $th;
         }
 
