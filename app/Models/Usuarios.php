@@ -47,8 +47,8 @@ class Usuarios extends Authenticatable implements JWTSubject
     protected $fillable = [
         'id',
         'nombre',
-        'apellidoPaterno',
-        'apellidoMaterno',
+        'apellido_paterno',
+        'apellido_materno',
         'email',
         'email_verified_at',
         'password',
