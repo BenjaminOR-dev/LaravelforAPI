@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\Models\WithCustomScopes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -16,8 +14,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PasswordsResets extends Model
 {
-    use HasFactory, WithCustomScopes;
-
     /**
      * The table associated with the model.
      *
