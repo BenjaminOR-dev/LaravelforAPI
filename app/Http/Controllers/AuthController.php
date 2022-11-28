@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuarios;
-use App\Enums\HttpStatusEnum;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth as RulesRequest;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -36,13 +36,28 @@ class AuthController extends Controller
      */
     public function login(RulesRequest\Login $request)
     {
-        if ($request->input('rememberMe') == true) {
-            $this->rememberMe = true;
+        $user = Usuarios::query()
+            ->where('email', $request->email)
+            ->first();
+
+        if (!$user) {
+            throw ValidationException::withMessages([
+                'email' => [
+                    'No se encontro algún usuario con el correo proporcionado.'
+                ]
+            ]);
         }
 
-        if (!$token = auth()->attempt($request->only(['email', 'password']))) {
-            abort(HttpStatusEnum::UNPROCESSABLE_ENTITY, "Las licencias son incorrectas");
+        if (!password_verify($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'password' => [
+                    'La contraseña es incorrecta.'
+                ]
+            ]);
         }
+
+        $this->rememberMe = $request->input('rememberMe') ? $request->rememberMe : false;
+        $token = Auth::login($user, $this->rememberMe);
 
         return $this->respondWithToken($token);
     }

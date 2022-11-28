@@ -12,8 +12,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * @property int id
  * @property string nombre
- * @property string apellidoPaterno
- * @property string apellidoMaterno
+ * @property string apellido_paterno
+ * @property string apellido_materno
  * @property string email
  * @property string email_verified_at
  * @property string password
