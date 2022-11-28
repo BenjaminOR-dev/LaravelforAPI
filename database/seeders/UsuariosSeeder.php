@@ -19,14 +19,14 @@ class UsuariosSeeder extends Seeder
         $fechaHoraActual = now()->toDateTimeString();
         Usuarios::insert([
             [
-                'id'              => 1,
-                'nombre'          => 'Admin',
-                'apellidoPaterno' => 'Admin',
-                'apellidoMaterno' => 'Admin',
-                'email'           => 'admin@test.com',
-                'password'        => bcrypt('pass'),
-                'created_at'      => $fechaHoraActual,
-                'updated_at'      => $fechaHoraActual
+                'id'               => 1,
+                'nombre'           => 'Admin',
+                'apellido_paterno' => 'Admin',
+                'apellido_materno' => 'Admin',
+                'email'            => 'admin@test.com',
+                'password'         => bcrypt('pass'),
+                'created_at'       => $fechaHoraActual,
+                'updated_at'       => $fechaHoraActual
             ]
         ]);
     }

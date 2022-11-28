@@ -25,8 +25,8 @@ class UsuariosFactory extends Factory
         $fechaHoraActual = now()->toDateTimeString();
         return [
             'nombre'            => $this->faker->firstName(),
-            'apellidoPaterno'   => $this->faker->lastName(),
-            'apellidoMaterno'   => $this->faker->lastName(),
+            'apellido_paterno'  => $this->faker->lastName(),
+            'apellido_materno'  => $this->faker->lastName(),
             'email'             => $this->faker->unique()->safeEmail(),
             'email_verified_at' => $fechaHoraActual,
             'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
