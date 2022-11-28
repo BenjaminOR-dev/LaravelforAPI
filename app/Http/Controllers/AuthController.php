@@ -43,7 +43,7 @@ class AuthController extends Controller
         if (!$user) {
             throw ValidationException::withMessages([
                 'email' => [
-                    'No se encontro algún usuario con el correo proporcionado.'
+                    'No se encontró al usuario.'
                 ]
             ]);
         }
