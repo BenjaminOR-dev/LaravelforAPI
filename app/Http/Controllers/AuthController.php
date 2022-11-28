@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuarios;
-use Illuminate\Http\Request;
 use App\Enums\HttpStatusEnum;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Auth as RulesRequest;
 
 class AuthController extends Controller
 {
@@ -34,14 +34,8 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request)
+    public function login(RulesRequest\Login $request)
     {
-        $request->validate([
-            'email'       => ['required', 'string', 'email', 'exists:usuarios,email'],
-            'password'    => ['required', 'string'],
-            'rememberMe'  => ['nullable', 'boolean']
-        ]);
-
         if ($request->input('rememberMe') == true) {
             $this->rememberMe = true;
         }
@@ -60,13 +54,9 @@ class AuthController extends Controller
      */
     public function me()
     {
-        $user = auth()->user();
+        $userId = auth()->id();
         $user = Usuarios::query()
-            ->where('id', $user->id)
-            ->with([
-                'perfil',
-                'empresa',
-            ])
+            ->where('id', $userId)
             ->first();
 
         return response()->json($user);
@@ -80,8 +70,7 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-
-        return ResponseHelper::json(null, 'Sesión cerrada correctamente');
+        return ResponseHelper::json(null);
     }
 
     /**
