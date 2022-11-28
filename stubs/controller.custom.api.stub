@@ -36,7 +36,7 @@ class {{ classNameController }} extends Controller
     public function index(RulesRequest\Index $request)
     {
         $index = {{ classNameService }}::index($request->validated(), false);
-        return ResponseHelper::json($index, "ExampleMessage");
+        return ResponseHelper::json($index);
     }
 
     /**
@@ -48,7 +48,7 @@ class {{ classNameController }} extends Controller
     public function store(RulesRequest\Store $request)
     {
         $store = {{ classNameService }}::store($request->validated(), false);
-        return ResponseHelper::json($store, "ExampleMessage");
+        return ResponseHelper::json($store, "Se guardó correctamente");
     }
 
     /**
@@ -60,7 +60,7 @@ class {{ classNameController }} extends Controller
     public function show(RulesRequest\Show $request)
     {
         $show = {{ classNameService }}::show($request->validated(), false);
-        return ResponseHelper::json($show, "ExampleMessage");
+        return ResponseHelper::json($show);
     }
 
     /**
@@ -73,7 +73,7 @@ class {{ classNameController }} extends Controller
     public function update(RulesRequest\Update $request)
     {
         $update = {{ classNameService }}::update($request->validated(), false);
-        return ResponseHelper::json($update, "ExampleMessage");
+        return ResponseHelper::json($update, "Se actualizó correctamente");
     }
 
     /**
@@ -85,6 +85,6 @@ class {{ classNameController }} extends Controller
     public function destroy(RulesRequest\Destroy $request)
     {
         $destroy = {{ classNameService }}::destroy($request->validated(), false);
-        return ResponseHelper::json($destroy, "ExampleMessage");
+        return ResponseHelper::json($destroy, "Se eliminó correctamente");
     }
 }
