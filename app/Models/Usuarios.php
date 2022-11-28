@@ -85,6 +85,15 @@ class Usuarios extends Authenticatable implements JWTSubject
     ];
 
     /**
+     * Appends Attributes
+     *
+     * @var array<string, string>
+     */
+    protected $appends = [
+        //
+    ];
+
+    /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed
