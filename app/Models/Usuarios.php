@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Models\WithCustomScopes;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -22,7 +23,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class Usuarios extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, WithCustomScopes;
 
     /**
      * The table associated with the model.
