@@ -90,8 +90,18 @@ class Usuarios extends Authenticatable implements JWTSubject
      * @var array<string, string>
      */
     protected $appends = [
-        //
+        'nombre_completo'
     ];
+
+    /**
+     * Attribute for nombre_completo
+     *
+     * @return string
+     */
+    public function getNombreCompletoAttribute()
+    {
+        return "{$this->nombre} {$this->apellido_paterno} {$this->apellido_materno}";
+    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
