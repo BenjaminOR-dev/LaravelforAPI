@@ -44,11 +44,11 @@ class Login extends FormRequest
     {
         return [
             'email.required'     => 'El campo :attribute es requerido',
-            'email.string'       => 'El campo :attribute debe ser una cadena de texto',
-            'email.email'        => 'El campo :attribute debe ser un correo electrónico válido',
+            'email.string'       => 'El valor del campo :attribute debe ser una cadena de texto',
+            'email.email'        => 'El valor del campo :attribute debe ser un correo electrónico válido',
             'email.exists'       => 'El valor del campo :attribute no se encuentra en la base de datos',
             'password.required'  => 'El campo :attribute es requerido',
-            'password.string'    => 'El campo :attribute debe ser una cadena de texto',
+            'password.string'    => 'El valor del campo :attribute debe ser una cadena de texto',
             'rememberMe.boolean' => 'El campo :attribute debe ser un valor booleano'
         ];
     }
