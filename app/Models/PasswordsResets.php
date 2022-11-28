@@ -1,12 +1,20 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Traits\Models\WithCustomScopes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class {{ class }} extends Model
+/**
+ * @property int id
+ * @property string email
+ * @property string token
+ * @property bool used
+ * @property string created_at
+ * @property string updated_at
+ */
+class PasswordsResets extends Model
 {
     use HasFactory, WithCustomScopes;
 
@@ -15,14 +23,14 @@ class {{ class }} extends Model
      *
      * @var string
      */
-    protected $table = 'TABLE_NAME';
+    protected $table = 'password_resets';
 
     /**
      * The primary key for the model.
      *
      * @var string
      */
-    protected $primaryKey = 'PRIMARY_KEY';
+    protected $primaryKey = 'id';
 
     /**
      * The attributes that are mass assignable.
@@ -30,7 +38,12 @@ class {{ class }} extends Model
      * @var array
      */
     protected $fillable = [
-        //
+        'id',
+        'email',
+        'token',
+        'used',
+        'created_at',
+        'updated_at'
     ];
 
     /**
