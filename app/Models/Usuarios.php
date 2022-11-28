@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -23,7 +22,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class Usuarios extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     /**
      * The table associated with the model.
