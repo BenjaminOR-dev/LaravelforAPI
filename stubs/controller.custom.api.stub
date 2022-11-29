@@ -6,25 +6,24 @@ use App\Helpers\ClassHelper;
 use App\Helpers\ResponseHelper;
 use App\Services\{{ classNameService }};
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Services\{{ classNameService }} as RulesRequest;
 
 class {{ classNameController }} extends Controller
 {
     /**
-     * Nombre de la clase
+     * My Service
      *
-     * @var string
+     * @var \App\Services\{{ classNameService }}
      */
-    public string $className;
+    protected $service;
 
     /**
-     * Construct
+     * Constructor
      *
      * @return void
      */
-    public function _construct()
+    public function __construct()
     {
-        $this->className = ClassHelper::getName(__CLASS__);
+        $this->service = new {{ classNameService }}();
     }
 
     /**
@@ -35,7 +34,7 @@ class {{ classNameController }} extends Controller
      */
     public function index(RulesRequest\Index $request)
     {
-        $index = {{ classNameService }}::index($request->validated(), false);
+        $index = $this->service->index($request->validated(), false);
         return ResponseHelper::json($index);
     }
 
@@ -47,7 +46,7 @@ class {{ classNameController }} extends Controller
      */
     public function store(RulesRequest\Store $request)
     {
-        $store = {{ classNameService }}::store($request->validated(), false);
+        $store = $this->service->store($request->validated(), false);
         return ResponseHelper::json($store, "Se guardó correctamente");
     }
 
@@ -59,7 +58,7 @@ class {{ classNameController }} extends Controller
      */
     public function show(RulesRequest\Show $request)
     {
-        $show = {{ classNameService }}::show($request->validated(), false);
+        $show = $this->service->show($request->validated(), false);
         return ResponseHelper::json($show);
     }
 
@@ -72,7 +71,7 @@ class {{ classNameController }} extends Controller
      */
     public function update(RulesRequest\Update $request)
     {
-        $update = {{ classNameService }}::update($request->validated(), false);
+        $update = $this->service->update($request->validated(), false);
         return ResponseHelper::json($update, "Se actualizó correctamente");
     }
 
@@ -84,7 +83,7 @@ class {{ classNameController }} extends Controller
      */
     public function destroy(RulesRequest\Destroy $request)
     {
-        $destroy = {{ classNameService }}::destroy($request->validated(), false);
+        $destroy = $this->service->destroy($request->validated(), false);
         return ResponseHelper::json($destroy, "Se eliminó correctamente");
     }
 }

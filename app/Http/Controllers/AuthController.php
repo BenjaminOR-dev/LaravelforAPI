@@ -56,7 +56,7 @@ class AuthController extends Controller
             ]);
         }
 
-        $this->rememberMe = $request->input('rememberMe') ? $request->rememberMe : false;
+        $this->rememberMe = $request->input('rememberMe') ? $request->rememberMe : $this->rememberMe;
         $token = Auth::login($user, $this->rememberMe);
 
         return $this->respondWithToken($token);

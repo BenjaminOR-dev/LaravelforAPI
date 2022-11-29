@@ -2,20 +2,12 @@
 
 namespace App\Services;
 
-use App\Helpers\ClassHelper;
-use App\Helpers\ValidatorHelper;
+use App\Services\Service;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Services\{{ className }} as RulesRequest;
 
-class {{ className }}
+class {{ className }} extends Service
 {
-    /**
-     * Nombre de la clase
-     *
-     * @var string
-     */
-    public string $className;
-
     /**
      * Construct
      *
@@ -23,7 +15,7 @@ class {{ className }}
      */
     public function _construct()
     {
-        $this->className = ClassHelper::getName(__CLASS__);
+        //
     }
 
     /**
@@ -33,11 +25,9 @@ class {{ className }}
      * @param  bool  $validateData
      * @return <type> $example
      */
-    public static function index(array $data, bool $validateData = true)
+    public function index(array $data, bool $validateData = true)
     {
-        $self = new Self();
-
-        if ($validateData) $data = ValidatorHelper::make(RulesRequest\Index::class, $data);
+        $this->validate(RulesRequest\Index::class, $data, $validateData);
         $request = new RulesRequest\Index($data);
 
         # code
@@ -53,11 +43,9 @@ class {{ className }}
      * @param  bool  $validateData
      * @return <type> $example
      */
-    public static function store(array $data, bool $transactionExists = false, bool $validateData = true)
+    public function store(array $data, bool $transactionExists = false, bool $validateData = true)
     {
-        $self = new Self();
-
-        if ($validateData) $data = ValidatorHelper::make(RulesRequest\Store::class, $data);
+        $this->validate(RulesRequest\Store::class, $data, $validateData);
         $request = new RulesRequest\Store($data);
 
         if (!$transactionExists) DB::beginTransaction();
@@ -80,11 +68,9 @@ class {{ className }}
      * @param  bool  $validateData
      * @return <type> $example
      */
-    public static function show(array $data, bool $validateData = true)
+    public function show(array $data, bool $validateData = true)
     {
-        $self = new Self();
-
-        if ($validateData) $data = ValidatorHelper::make(RulesRequest\Show::class, $data);
+        $this->validate(RulesRequest\Show::class, $data, $validateData);
         $request = new RulesRequest\Show($data);
 
         # code
@@ -100,11 +86,9 @@ class {{ className }}
      * @param  bool  $validateData
      * @return <type> $example
      */
-    public static function update(array $data, bool $transactionExists = false, bool $validateData = true)
+    public function update(array $data, bool $transactionExists = false, bool $validateData = true)
     {
-        $self = new Self();
-
-        if ($validateData) $data = ValidatorHelper::make(RulesRequest\Update::class, $data);
+        $this->validate(RulesRequest\Update::class, $data, $validateData);
         $request = new RulesRequest\Update($data);
 
         if (!$transactionExists) DB::beginTransaction();
@@ -128,11 +112,9 @@ class {{ className }}
      * @param  bool  $validateData
      * @return <type> $example
      */
-    public static function destroy(array $data, bool $transactionExists = false, bool $validateData = true)
+    public function destroy(array $data, bool $transactionExists = false, bool $validateData = true)
     {
-        $self = new Self();
-
-        if ($validateData) $data = ValidatorHelper::make(RulesRequest\Destroy::class, $data);
+        $this->validate(RulesRequest\Destroy::class, $data, $validateData);
         $request = new RulesRequest\Destroy($data);
 
         if (!$transactionExists) DB::beginTransaction();
