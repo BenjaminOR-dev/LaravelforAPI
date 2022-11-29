@@ -48,5 +48,48 @@ class Service
     public function validate(string $rulesRequest, array &$data, bool $returnValidated = true)
     {
         $data = ValidatorHelper::make($rulesRequest, $data, $returnValidated);
+        debug_("Validación de {$this->getClassNameAndMethod()}", $data);
+    }
+
+    /**
+     * DB Begin Transaction
+     *
+     * @param bool $transactionExists
+     * @return void
+     */
+    public function dbBeginTransaction(bool $transactionExists = false)
+    {
+        if (!$transactionExists) {
+            debug_("Se crea la transacción");
+            DB::beginTransaction();
+        }
+    }
+
+    /**
+     * DB Commit
+     *
+     * @param bool $transactionExists
+     * @return void
+     */
+    public function dbCommit(bool $transactionExists = false)
+    {
+        if (!$transactionExists) {
+            debug_("Se realiza el COMMIT de la transacción");
+            DB::commit();
+        }
+    }
+
+    /**
+     * DB Rollback
+     *
+     * @param bool $transactionExists
+     * @return void
+     */
+    public function dbRollback(Throwable $th, bool $transactionExists = false)
+    {
+        if (!$transactionExists) {
+            debug_("Se realiza ROLLBACK de la transacción: {$th->getMessage()}");
+            DB::rollBack();
+        }
     }
 }
