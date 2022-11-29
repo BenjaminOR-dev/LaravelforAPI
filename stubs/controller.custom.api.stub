@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ClassHelper;
 use App\Helpers\ResponseHelper;
 use App\Services\{{ classNameService }};
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Services\{{ classNameService }} as RulesRequest;
 
 class {{ classNameController }} extends Controller
 {
@@ -46,7 +46,7 @@ class {{ classNameController }} extends Controller
      */
     public function store(RulesRequest\Store $request)
     {
-        $store = $this->service->store($request->validated(), false);
+        $store = $this->service->store($request->validated(), false, false);
         return ResponseHelper::json($store, "Se guardó correctamente");
     }
 
@@ -71,7 +71,7 @@ class {{ classNameController }} extends Controller
      */
     public function update(RulesRequest\Update $request)
     {
-        $update = $this->service->update($request->validated(), false);
+        $update = $this->service->update($request->validated(), false, false);
         return ResponseHelper::json($update, "Se actualizó correctamente");
     }
 
@@ -83,7 +83,7 @@ class {{ classNameController }} extends Controller
      */
     public function destroy(RulesRequest\Destroy $request)
     {
-        $destroy = $this->service->destroy($request->validated(), false);
+        $destroy = $this->service->destroy($request->validated(), false, false);
         return ResponseHelper::json($destroy, "Se eliminó correctamente");
     }
 }
