@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Services\Service;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Services\{{ className }} as RulesRequest;
 
 class {{ className }} extends Service
