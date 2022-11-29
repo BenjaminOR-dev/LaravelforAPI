@@ -38,6 +38,26 @@ class Service
     }
 
     /**
+     * Make a debug log for init method
+     *
+     * @return void
+     */
+    public function logInitMethod()
+    {
+        debug_("Inicia {$this->getClassNameAndMethod()}");
+    }
+
+    /**
+     * Make a debug log for end method
+     *
+     * @return void
+     */
+    public function logEndMethod()
+    {
+        debug_("Finaliza {$this->getClassNameAndMethod()}");
+    }
+
+    /**
      * Validate for service
      *
      * @param string $rulesRequest
