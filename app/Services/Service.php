@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use Throwable;
 use App\Helpers\ClassHelper;
 use App\Helpers\ValidatorHelper;
+use Illuminate\Support\Facades\DB;
 
 class Service
 {
