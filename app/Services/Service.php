@@ -64,14 +64,15 @@ class Service
      *
      * @param string $rulesRequest
      * @param array $data
-     * @param bool $returnValidated
+     * @param bool $validateData = true
+     * @param bool $makeValidatedToData
      * @return void
      */
-    protected function validate(string $rulesRequest, array &$data, bool $returnValidated = true)
+    protected function validate(string $rulesRequest, array &$data, bool $validateData = true, bool $applyValidatedToData = true)
     {
         $this->logInitMethod();
 
-        $data = ValidatorHelper::make($rulesRequest, $data, $returnValidated);
+        if ($validateData) $data = ValidatorHelper::make($rulesRequest, $data, $applyValidatedToData);
         debug_('Datos de entrada', $data);
 
         $this->logEndMethod();
