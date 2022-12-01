@@ -14,9 +14,9 @@ class Service
      *
      * @return string
      */
-    public function getClassName()
+    protected function getClassName(int $indexClassPosition = 1)
     {
-        return ClassHelper::getName(static::class);
+        return ClassHelper::getName(debug_backtrace()[$indexClassPosition]['class']);
     }
 
     /**
@@ -24,9 +24,9 @@ class Service
      *
      * @return string
      */
-    public function getMethodName()
+    protected function getMethodName(int $indexMethodPosition = 1)
     {
-        return debug_backtrace()[1]['function'] . '()';
+        return debug_backtrace()[$indexMethodPosition]['function'];
     }
 
     /**
@@ -34,9 +34,9 @@ class Service
      *
      * @return string
      */
-    public function getClassNameAndMethod()
+    protected function getClassNameAndMethod(int $indexClassAndMethodPosition = 2)
     {
-        return $this->getClassName() . '::' . $this->getMethodName();
+        return $this->getClassName($indexClassAndMethodPosition) . '::' . $this->getMethodName($indexClassAndMethodPosition) . '()';
     }
 
     /**
@@ -44,9 +44,9 @@ class Service
      *
      * @return void
      */
-    public function logInitMethod()
+    protected function logInitMethod(int $indexClassAndMethodPosition = 3)
     {
-        debug_("Inicia {$this->getClassNameAndMethod()}");
+        debug_("Inicia {$this->getClassNameAndMethod($indexClassAndMethodPosition)}");
     }
 
     /**
@@ -54,9 +54,9 @@ class Service
      *
      * @return void
      */
-    public function logEndMethod()
+    protected function logEndMethod(int $indexClassAndMethodPosition = 3)
     {
-        debug_("Finaliza {$this->getClassNameAndMethod()}");
+        debug_("Finaliza {$this->getClassNameAndMethod($indexClassAndMethodPosition)}");
     }
 
     /**
@@ -65,12 +65,16 @@ class Service
      * @param string $rulesRequest
      * @param array $data
      * @param bool $returnValidated
-     * @return array
+     * @return void
      */
-    public function validate(string $rulesRequest, array &$data, bool $returnValidated = true)
+    protected function validate(string $rulesRequest, array &$data, bool $returnValidated = true)
     {
-        $data = ValidatorHelper::make($rulesRequest, $data, $returnValidated);
-        debug_("Validación de {$this->getClassNameAndMethod()}", $data);
+        $this->logInitMethod();
+
+        $data = ValidatorHelper::makeForServiceV2($rulesRequest, $data, $returnValidated);
+        debug_('Datos de entrada', $data);
+
+        $this->logEndMethod();
     }
 
     /**
@@ -79,12 +83,16 @@ class Service
      * @param bool $transactionExists
      * @return void
      */
-    public function dbBeginTransaction(bool $transactionExists = false)
+    protected function dbBeginTransaction(bool $transactionExists = false)
     {
+        $this->logInitMethod();
+
         if (!$transactionExists) {
             debug_("Se crea la transacción");
             DB::beginTransaction();
         }
+
+        $this->logEndMethod();
     }
 
     /**
@@ -93,12 +101,16 @@ class Service
      * @param bool $transactionExists
      * @return void
      */
-    public function dbCommit(bool $transactionExists = false)
+    protected function dbCommit(bool $transactionExists = false)
     {
+        $this->logInitMethod();
+
         if (!$transactionExists) {
-            debug_("Se realiza el COMMIT de la transacción");
+            debug_("Se realiza el commit");
             DB::commit();
         }
+
+        $this->logEndMethod();
     }
 
     /**
@@ -107,11 +119,15 @@ class Service
      * @param bool $transactionExists
      * @return void
      */
-    public function dbRollback(Throwable $th, bool $transactionExists = false)
+    protected function dbRollback(Throwable $th, bool $transactionExists = false)
     {
+        $this->logInitMethod();
+
         if (!$transactionExists) {
-            debug_("Se realiza ROLLBACK de la transacción: {$th->getMessage()}");
+            debug_("ROLLBACK: {$th->getMessage()}");
             DB::rollBack();
         }
+
+        $this->logEndMethod();
     }
 }
