@@ -10,13 +10,29 @@ use Illuminate\Support\Facades\DB;
 class Service
 {
     /**
+     * Carbon instance with DB timezone.
+     *
+     * @var \Carbon\Carbon
+     */
+    private $carbonDB;
+
+    /**
      * Get the name of the class
      *
      * @return string
      */
     protected function getClassName(int $indexClassPosition = 1)
     {
-        return ClassHelper::getName(debug_backtrace()[$indexClassPosition]['class']);
+        $class = 'unknownClass';
+        if (!empty(debug_backtrace())) {
+            if (!empty(debug_backtrace()[$indexClassPosition])) {
+                if (!empty(debug_backtrace()[$indexClassPosition]['class'])) {
+                    $class = ClassHelper::getName(debug_backtrace()[$indexClassPosition]['class']);
+                }
+            }
+        }
+
+        return $class;
     }
 
     /**
@@ -26,7 +42,34 @@ class Service
      */
     protected function getMethodName(int $indexMethodPosition = 1)
     {
-        return debug_backtrace()[$indexMethodPosition]['function'];
+        $function = 'unknownMethod';
+        if (!empty(debug_backtrace())) {
+            if (!empty(debug_backtrace()[$indexMethodPosition])) {
+                if (!empty(debug_backtrace()[$indexMethodPosition]['function'])) {
+                    $function = debug_backtrace()[$indexMethodPosition]['function'];
+                }
+            }
+        }
+        return $function;
+    }
+
+    /**
+     * Get the arguments used in the method
+     *
+     * @return array|null
+     */
+    protected function getMethodArgs(int $indexMethodPosition = 1)
+    {
+        $args = null;
+        if (!empty(debug_backtrace())) {
+            if (!empty(debug_backtrace()[$indexMethodPosition])) {
+                if (!empty(debug_backtrace()[$indexMethodPosition]['args'])) {
+                    $args = (array) debug_backtrace()[$indexMethodPosition]['args'];
+                }
+            }
+        }
+
+        return $args;
     }
 
     /**
@@ -44,9 +87,14 @@ class Service
      *
      * @return void
      */
-    protected function logInitMethod(int $indexClassAndMethodPosition = 3)
+    protected function logInitMethod()
     {
-        debug_("Inicia {$this->getClassNameAndMethod($indexClassAndMethodPosition)}");
+        debug_(
+            "Inicia {$this->getClassNameAndMethod(3)}",
+            [
+                'arguments' => $this->getMethodArgs(2),
+            ]
+        );
     }
 
     /**
@@ -54,9 +102,9 @@ class Service
      *
      * @return void
      */
-    protected function logEndMethod(int $indexClassAndMethodPosition = 3)
+    protected function logEndMethod()
     {
-        debug_("Finaliza {$this->getClassNameAndMethod($indexClassAndMethodPosition)}");
+        debug_("Finaliza {$this->getClassNameAndMethod(3)}");
     }
 
     /**
