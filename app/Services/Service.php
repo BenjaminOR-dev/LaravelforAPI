@@ -64,7 +64,7 @@ class Service
      *
      * @param string $rulesRequest
      * @param array $data
-     * @param bool $validateData = true
+     * @param bool $validateData
      * @param bool $makeValidatedToData
      * @return void
      */
