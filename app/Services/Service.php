@@ -65,7 +65,7 @@ class Service
      * @param string $rulesRequest
      * @param array $data
      * @param bool $validateData
-     * @param bool $makeValidatedToData
+     * @param bool $applyValidatedToData
      * @return void
      */
     protected function validate(string $rulesRequest, array &$data, bool $validateData = true, bool $applyValidatedToData = true)
