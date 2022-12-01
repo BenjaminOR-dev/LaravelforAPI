@@ -71,7 +71,7 @@ class Service
     {
         $this->logInitMethod();
 
-        $data = ValidatorHelper::makeForServiceV2($rulesRequest, $data, $returnValidated);
+        $data = ValidatorHelper::make($rulesRequest, $data, $returnValidated);
         debug_('Datos de entrada', $data);
 
         $this->logEndMethod();
