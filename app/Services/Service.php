@@ -123,31 +123,36 @@ class Service
      * DB Begin Transaction
      *
      * @param bool $transactionExists
-     * @return void
+     * @return bool $selfTransaction
      */
-    protected function dbBeginTransaction(bool $transactionExists = false)
+    protected function dbBeginTransaction(bool &$transactionExists)
     {
         $this->logInitMethod();
 
+        $selfTransaction = false;
         if (!$transactionExists) {
             debug_("Se crea la transacción");
             DB::beginTransaction();
+            $transactionExists = true;
+            $selfTransaction = true;
         }
 
         $this->logEndMethod();
+        return $selfTransaction;
     }
 
     /**
      * DB Commit
      *
      * @param bool $transactionExists
+     * @param bool $selfTransaction
      * @return void
      */
-    protected function dbCommit(bool $transactionExists = false)
+    protected function dbCommit(bool $transactionExists, bool $selfTransaction)
     {
         $this->logInitMethod();
 
-        if (!$transactionExists) {
+        if ($transactionExists == false or $selfTransaction == true) {
             debug_("Se realiza el commit");
             DB::commit();
         }
@@ -159,13 +164,14 @@ class Service
      * DB Rollback
      *
      * @param bool $transactionExists
+     * @param bool $selfTransaction
      * @return void
      */
-    protected function dbRollback(Throwable $th, bool $transactionExists = false)
+    protected function dbRollback(Throwable $th, bool $transactionExists, bool $selfTransaction)
     {
         $this->logInitMethod();
 
-        if (!$transactionExists) {
+        if ($transactionExists == false or $selfTransaction == true) {
             debug_("ROLLBACK: {$th->getMessage()}");
             DB::rollBack();
         }
