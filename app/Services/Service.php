@@ -10,13 +10,6 @@ use Illuminate\Support\Facades\DB;
 class Service
 {
     /**
-     * Carbon instance with DB timezone.
-     *
-     * @var \Carbon\Carbon
-     */
-    private $carbonDB;
-
-    /**
      * Get the name of the class
      *
      * @return string
