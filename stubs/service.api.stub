@@ -47,13 +47,13 @@ class {{ className }} extends Service
         $this->validate(RulesRequest\Store::class, $data, $validateData);
         $request = new RulesRequest\Store($data);
 
-        $this->dbBeginTransaction($transactionExists);
+        $selfTransaction = $this->dbBeginTransaction($transactionExists);
         try {
             # code
 
-            $this->dbCommit($transactionExists);
+            $this->dbCommit($transactionExists, $selfTransaction);
         } catch (\Throwable $th) {
-            $this->dbRollback($th, $transactionExists);
+            $this->dbRollback($th, $transactionExists, $selfTransaction);
             throw $th;
         }
 
@@ -90,13 +90,13 @@ class {{ className }} extends Service
         $this->validate(RulesRequest\Update::class, $data, $validateData);
         $request = new RulesRequest\Update($data);
 
-        $this->dbBeginTransaction($transactionExists);
+        $selfTransaction = $this->dbBeginTransaction($transactionExists);
         try {
             # code
 
-            $this->dbCommit($transactionExists);
+            $this->dbCommit($transactionExists, $selfTransaction);
         } catch (\Throwable $th) {
-            $this->dbRollback($th, $transactionExists);
+            $this->dbRollback($th, $transactionExists, $selfTransaction);
             throw $th;
         }
 
@@ -116,13 +116,13 @@ class {{ className }} extends Service
         $this->validate(RulesRequest\Destroy::class, $data, $validateData);
         $request = new RulesRequest\Destroy($data);
 
-        $this->dbBeginTransaction($transactionExists);
+        $selfTransaction = $this->dbBeginTransaction($transactionExists);
         try {
             # code
 
-            $this->dbCommit($transactionExists);
+            $this->dbCommit($transactionExists, $selfTransaction);
         } catch (\Throwable $th) {
-            $this->dbRollback($th, $transactionExists);
+            $this->dbRollback($th, $transactionExists, $selfTransaction);
             throw $th;
         }
 
