@@ -163,16 +163,17 @@ class Service
     /**
      * DB Rollback
      *
+     * @param string messageRollback
      * @param bool $transactionExists
      * @param bool $selfTransaction
      * @return void
      */
-    protected function dbRollback(Throwable $th, bool $transactionExists, bool $selfTransaction)
+    protected function dbRollback(string $messageRollback, bool $transactionExists, bool $selfTransaction)
     {
         $this->logInitMethod();
 
         if ($transactionExists == false or $selfTransaction == true) {
-            debug_("ROLLBACK: {$th->getMessage()}");
+            debug_("ROLLBACK: {$messageRollback}");
             DB::rollBack();
         }
 

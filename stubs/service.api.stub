@@ -53,7 +53,7 @@ class {{ className }} extends Service
 
             $this->dbCommit($transactionExists, $selfTransaction);
         } catch (\Throwable $th) {
-            $this->dbRollback($th, $transactionExists, $selfTransaction);
+            $this->dbRollback($th->getMessage(), $transactionExists, $selfTransaction);
             throw $th;
         }
 
@@ -96,7 +96,7 @@ class {{ className }} extends Service
 
             $this->dbCommit($transactionExists, $selfTransaction);
         } catch (\Throwable $th) {
-            $this->dbRollback($th, $transactionExists, $selfTransaction);
+            $this->dbRollback($th->getMessage(), $transactionExists, $selfTransaction);
             throw $th;
         }
 
@@ -122,7 +122,7 @@ class {{ className }} extends Service
 
             $this->dbCommit($transactionExists, $selfTransaction);
         } catch (\Throwable $th) {
-            $this->dbRollback($th, $transactionExists, $selfTransaction);
+            $this->dbRollback($th->getMessage(), $transactionExists, $selfTransaction);
             throw $th;
         }
 
