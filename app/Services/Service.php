@@ -173,7 +173,7 @@ class Service
         $this->logInitMethod();
 
         if ($transactionExists == false or $selfTransaction == true) {
-            debug_("ROLLBACK: {$messageRollback}");
+            debug_("Se hace ROLLBACK: {$messageRollback}");
             DB::rollBack();
         }
 
